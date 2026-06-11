@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>📋 Мои плейлисты</h1>
+<button onclick="createPl()" class="btn-create">➕ Создать плейлист</button>
+{% if playlists %}
+    <div class="playlists-list">
+        {% for pl in playlists %}
+            <div class="playlist-card"><h3>{{ pl.name }}</h3><a href="/playlist/{{ pl.id }}" class="btn-view">Открыть</a></div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty"><p>У вас пока нет плейлистов.</p></div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+function createPl() {
+    let name = prompt("Название плейлиста:");
+    if(name) fetch('/create-playlist',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'name='+encodeURIComponent(name)})
+    .then(r=>r.json()).then(d=>{ if(d.success) location.reload(); else alert(d.message); });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-header">
+    <h1>👋 Добро пожаловать, {{ display_name }}!</h1>
+</div>
+<div class="stats">
+    <div class="stat-card">
+        <div class="stat-icon">❤️</div>
+        <div class="stat-number">{{ favorites_count }}</div>
+        <div>Избранных треков</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-number">{{ playlists_count }}</div>
+        <div>Плейлистов</div>
+    </div>
+</div>
+<div class="actions">
+    <a href="/search" class="action-btn">🔍 Поиск музыки</a>
+    <button onclick="createPlaylist()" class="action-btn">➕ Создать плейлист</button>
+    <a href="/favorites" class="action-btn">❤️ Моё избранное</a>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function createPlaylist() {
+    let name = prompt("Введите название плейлиста:");
+    if (name) {
+        fetch('/create-playlist', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: 'name=' + encodeURIComponent(name) })
+        .then(r => r.json()).then(data => { if(data.success) window.location.href='/playlists'; else alert(data.message); });
+    }
+}
+</script>
+{% endblock %}
+
