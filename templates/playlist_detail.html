@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="/playlists" class="btn-back">⬅️ Назад</a>
+<h1>📋 {{ playlist.name }}</h1>
+{% if tracks %}
+    {% for track in tracks %}
+        <div class="track-card">
+            <div><div class="track-title">{{ track.track_title }}</div><div class="track-artist">{{ track.track_artist }}</div></div>
+            <button class="btn-icon" onclick="remTrack('{{ playlist.id }}', '{{ track.track_id }}')">❌</button>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="empty"><p>В плейлисте пока нет треков.</p></div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+function remTrack(pid, tid) {
+    fetch('/remove-from-playlist', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:`playlist_id=${pid}&track_id=${tid}`})
+    .then(r=>r.json()).then(d=>{ if(d.success) location.reload(); else alert(d.message); });
+}
+</script>
+{% endblock %}

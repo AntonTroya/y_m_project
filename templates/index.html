@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+    <h1>Yandex Music Simple Player</h1>
+    <p>Простое и удобное приложение для работы с Яндекс Музыкой</p>
+    {% if not current_user.is_authenticated %}
+        <a href="/login" class="btn-large">Войти через Яндекс</a>
+    {% else %}
+        <a href="/dashboard" class="btn-large">Перейти в панель управления</a>
+    {% endif %}
+</div>
+<div class="features">
+    <div class="feature-card"><div class="feature-icon">🔍</div><h3>Поиск музыки</h3><p>Находите любые треки</p></div>
+    <div class="feature-card"><div class="feature-icon">❤️</div><h3>Избранное</h3><p>Сохраняйте любимые треки</p></div>
+    <div class="feature-card"><div class="feature-icon">📋</div><h3>Плейлисты</h3><p>Создавайте коллекции</p></div>
+</div>
+{% endblock %}

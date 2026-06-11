@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-icon">🔐</div>
+        <h2>Вход в систему</h2>
+        <p>Для работы необходимо авторизоваться через Яндекс</p>
+        <form method="POST" action="/login">
+            <button type="submit" class="btn-yandex">Войти через Яндекс</button>
+        </form>
+        <div class="login-info">
+            <strong>Как это работает?</strong>
+            <ol>
+                <li>Нажмите кнопку выше</li>
+                <li>В консоли (терминале) появится код и ссылка</li>
+                <li>Откройте ссылку и введите код</li>
+                <li>Подтвердите вход на странице Яндекса</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
